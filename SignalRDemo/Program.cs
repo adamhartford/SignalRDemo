@@ -5,6 +5,7 @@ using Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SignalRDemo
 {
@@ -24,8 +25,16 @@ namespace SignalRDemo
 	{
 		public void Configuration(IAppBuilder app)
 		{
+			// Change to false to use a persistent connection.
+			bool useHubs = true;
+			
 			app.UseCors (CorsOptions.AllowAll);
-			app.MapSignalR ();
+
+			if (useHubs) {
+				app.MapSignalR ();
+			} else {
+				app.MapSignalR<MyConnection> ("/echo");
+			}
 		}
 	}
 
@@ -54,6 +63,16 @@ namespace SignalRDemo
 		public void SendComplex(ComplexMessage message) 
 		{
 			Clients.All.notifyComplex (message);
+		}
+	}
+
+	// Persistent Connection...
+
+	public class MyConnection : PersistentConnection 
+	{
+		protected override Task OnReceived(IRequest request, string connectionId, string data) 
+		{
+			return Connection.Broadcast(data);
 		}
 	}
 }   
