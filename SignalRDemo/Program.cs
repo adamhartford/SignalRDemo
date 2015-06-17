@@ -6,6 +6,8 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Nancy;
 
 namespace SignalRDemo
 {
@@ -13,7 +15,10 @@ namespace SignalRDemo
 	{
 		public static void Main(string[] args)
 		{
-			string url = "http://localhost:8080";
+            // 127.0.0.1 myserver.com in /etc/hosts
+            // Or change myserver.com to localhost
+            // Using myserver.com instead of localhost to capture requests in Charles Proxy
+			string url = "http://myserver.com:8080";
 			using (WebApp.Start (url)) {
 				Console.WriteLine ("Server running on {0}", url);
 				Console.ReadLine ();
@@ -35,15 +40,28 @@ namespace SignalRDemo
 			} else {
 				app.MapSignalR<MyConnection> ("/echo");
 			}
+
+            app.UseNancy ();
 		}
 	}
 
-	// Simple example...
+    public class TestModule: NancyModule
+    {
+        public TestModule() 
+        {
+            Get ["/Test"] = _ => {
+                return View["Demo"];
+            };
+        }
+    }
 
+	// Simple example...
+    [CustomAuthorize]
 	public class SimpleHub : Hub
 	{
 		public void SendSimple(string message, string detail)
 		{
+            var clients = Clients.All;
 			Clients.All.notifySimple (message, detail);
 		}
 	}
@@ -60,6 +78,13 @@ namespace SignalRDemo
 
 	public class ComplexHub : Hub
 	{
+        public override Task OnConnected ()
+        {
+            // foo = bar
+            string foo = Context.QueryString ["foo"];
+            return base.OnConnected ();
+        }
+        
 		public void SendComplex(ComplexMessage message) 
 		{
 			Clients.All.notifyComplex (message);
@@ -75,4 +100,25 @@ namespace SignalRDemo
 			return Connection.Broadcast(data);
 		}
 	}
+
+    // Authorization... Just to demonstrate API and debug context/request objects.
+
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    public class CustomAuthorizeAttribute : AuthorizeAttribute
+    {
+        protected override bool UserAuthorized(System.Security.Principal.IPrincipal user)
+        {
+            return true;
+        }
+
+        public override bool AuthorizeHubConnection (Microsoft.AspNet.SignalR.Hubs.HubDescriptor hubDescriptor, IRequest request)
+        {
+             return true;
+        }
+
+        public override bool AuthorizeHubMethodInvocation (Microsoft.AspNet.SignalR.Hubs.IHubIncomingInvokerContext hubIncomingInvokerContext, bool appliesToMethod)
+        {
+            return true;
+        }
+    }
 }   

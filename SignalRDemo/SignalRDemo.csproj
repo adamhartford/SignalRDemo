@@ -62,17 +62,39 @@
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>DLL\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Nancy">
+      <HintPath>..\packages\Nancy.1.2.0\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Owin">
+      <HintPath>..\packages\Nancy.Owin.1.2.0\lib\net40\Nancy.Owin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NancyBootstrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="DLL\Microsoft.AspNet.SignalR.Core.dll" />
+    <None Include="js\jquery.signalR-2.2.0.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\jquery-2.1.3.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="js\demo.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\Test\Demo.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DLL\" />
+    <Folder Include="js\" />
+    <Folder Include="Views\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
 </Project>
