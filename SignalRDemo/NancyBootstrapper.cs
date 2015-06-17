@@ -17,7 +17,6 @@ namespace SignalRDemo
         }
 
         protected override void ConfigureConventions (NancyConventions nancyConventions)
-
         {
             nancyConventions.StaticContentsConventions.Add (StaticContentConventionBuilder.AddDirectory ("css"));
             nancyConventions.StaticContentsConventions.Add (StaticContentConventionBuilder.AddDirectory ("fonts"));
