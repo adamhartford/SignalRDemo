@@ -8,4 +8,4 @@ You can run this application, browse to http://localhost:8080/Test, run a SwiftR
 
 ~~See: http://stackoverflow.com/questions/28288136/running-signalr-self-host-samples-throws-exception-with-latest-mono-dev-branch~~
 
-A custom SignalR.Core.dll is no longer necessary with Mono 4.2.
+A custom Microsoft.AspNet.SignalR.Core.dll is no longer necessary with Mono 4.2.
