@@ -53,20 +53,20 @@
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core">
-      <HintPath>DLL\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    <Reference Include="Nancy.Owin">
+      <HintPath>..\packages\Nancy.Owin.1.4.1\lib\net40\Nancy.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Nancy">
-      <HintPath>..\packages\Nancy.1.2.0\lib\net40\Nancy.dll</HintPath>
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Owin">
-      <HintPath>..\packages\Nancy.Owin.1.2.0\lib\net40\Nancy.Owin.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +77,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="DLL\Microsoft.AspNet.SignalR.Core.dll" />
     <None Include="js\jquery.signalR-2.2.0.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -92,7 +91,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DLL\" />
     <Folder Include="js\" />
     <Folder Include="Views\" />
     <Folder Include="Views\Test\" />
